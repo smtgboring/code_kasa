@@ -1,3 +1,4 @@
+
 <?php
 use kartik\icons\FontAwesomeAsset;
 use yii\helpers\Html;
@@ -11,10 +12,14 @@ use yii\grid\GridView;
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
-
+<?php
+$form = ActiveForm::begin([
+    'id' => $model->formName()
+]);
+?>
 <div class="projekti-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = yii\widgets\ActiveForm::begin(); ?>
     <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Naziv_Projekta')->textInput(['maxlength' => true]) ?>
@@ -35,4 +40,25 @@ use yii\grid\GridView;
     </div>
 
     <?php ActiveForm::end(); ?>
+    <?php
+
+    //beforeSubmit
+
+    $js = "
+
+        $('form#".$model->formName()."').on('beforeSubmit', function(e){
+
+            var \$form = $(this);
+
+            submitMySecondForm(\$form);
+
+        }).on('submit', function(e){
+            console.log('complete');
+            e.preventDefault();
+
+        });";
+
+    $this->registerJs($js);
+
+    ?>
 

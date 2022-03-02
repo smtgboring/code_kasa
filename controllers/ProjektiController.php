@@ -13,6 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use Yii;
 
 /**
  * ProjektiController implements the CRUD actions for Projekti model.
@@ -47,11 +48,12 @@ class ProjektiController extends Controller
         $searchModel = new ProjektiQuerry();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $users= $dataProvider;
-
+        $model = new Projekti();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
@@ -80,19 +82,24 @@ class ProjektiController extends Controller
      */
     public function actionCreate()
     {
+        $searchModel = new ProjektiQuerry();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $model = new Projekti();
-        $klasnaOznaka=KlasnaOznaka::find()->all();
         $klasnaOznakaArray= ArrayHelper::map(KlasnaOznaka::find()->all(),'ID_klasna_oznaka', 'Klasna_Oznaka' );
-        $odgovornaOsoba=OdgovornaOsoba::find()->all();
         $odgovornaOsoba= ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
-
+        $model = new Projekti();
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $model->refresh();
+                $model= new Projekti();
 
-                return $this->redirect(['view', ['id' => $model->id],
+                return $this->render('index',
+                    [
                     'odgovornaOsoba'=> $odgovornaOsoba,
                     'klasnaOznakaArray' => $klasnaOznakaArray,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'model'=>$model,
                 ]);
             }
         } else {
@@ -101,7 +108,7 @@ class ProjektiController extends Controller
         }
 
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
             'klasnaOznakaArray' => $klasnaOznakaArray,
             'odgovornaOsoba' => $odgovornaOsoba,
@@ -124,7 +131,7 @@ class ProjektiController extends Controller
         $odgovornaOsoba=OdgovornaOsoba::find()->all();
         $odgovornaOsoba= ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', ['id' => $model->id],
+            return $this->redirect(['index', ['id' => $model->id],
                 'odgovornaOsoba'=> $odgovornaOsoba,
                 'klasnaOznakaArray' => $klasnaOznakaArray]);
         }
