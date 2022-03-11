@@ -28,26 +28,66 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_partneri',
-            'Ime',
-            'Tel',
-            'Fax',
-            'Mob',
-            //'Email:email',
-            //'Vrsta',
-            //'Napravio',
-            //'CreatedAt',
-            //'Web',
-            //'Adresa',
-            //'Adresa2',
-            //'Grad',
-            //'Drzava',
-            //'pos_br',
-            //'JIB',
-            //'PDV',
-            //'Datum_rodjenja',
-            //'Broj_LK',
-            //'Mjesto_izdavanja_lk',
+
+             ['attribute'=>'Ime',
+                 'enableSorting' => false
+             ],
+            ['attribute'=>'Tel',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Fax',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Mob',
+                'enableSorting' => false
+            ],
+/*
+            ['attribute'=>'Email',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Vrsta',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Napravio',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'CreatedAt',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Web',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Adresa',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Adresa2',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Grad',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Drzava',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'pos_br',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'JIB',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'PDV',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Datum_rodjenja',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Broj_LK',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Mjesto_izdavanja_lk',
+                'enableSorting' => false
+            ],
+            */
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Partneri $model, $key, $index, $column) {

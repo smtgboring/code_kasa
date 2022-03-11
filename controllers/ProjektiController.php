@@ -84,7 +84,6 @@ class ProjektiController extends Controller
     {
         $searchModel = new ProjektiQuerry();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
         $klasnaOznakaArray= ArrayHelper::map(KlasnaOznaka::find()->all(),'ID_klasna_oznaka', 'Klasna_Oznaka' );
         $odgovornaOsoba= ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
         $model = new Projekti();
@@ -92,9 +91,10 @@ class ProjektiController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 $model->refresh();
                 $model= new Projekti();
-
+                $model->loadDefaultValues();
                 return $this->render('index',
                     [
+                    'sort' => false,
                     'odgovornaOsoba'=> $odgovornaOsoba,
                     'klasnaOznakaArray' => $klasnaOznakaArray,
                     'searchModel' => $searchModel,
@@ -103,13 +103,15 @@ class ProjektiController extends Controller
                 ]);
             }
         } else {
-
+            $dataProvider->setSort(false);
             $model->loadDefaultValues();
+
         }
 
 
-        return $this->renderAjax('create', [
+        return $this->renderAjax('_form', [
             'model' => $model,
+            'sort' => false,
             'klasnaOznakaArray' => $klasnaOznakaArray,
             'odgovornaOsoba' => $odgovornaOsoba,
         ]);

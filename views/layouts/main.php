@@ -42,9 +42,9 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Projekti', 'url' => ['/projekti']],
-            ['label' => 'Partneri', 'url' => ['/partneri']],
             ['label' => 'Zadaci', 'url' => ['/zadaci']],
             ['label' => 'Kalendar', 'url' => ['/site/kalendar']],
+            ['label' => 'Partneri', 'url' => ['/partneri']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

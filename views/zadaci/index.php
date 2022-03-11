@@ -28,21 +28,47 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['attribute'=>'ime_zadatak',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'opis_zadatak',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'dodijeli_zadatak_id',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'projekat_id',
+                'enableSorting' => false
+            ],
+            /* ['attribute'=>'Firma',
+                'enableSorting' => false
+            ],
+             ['attribute'=>'Kontakt',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'posrednik',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'datum',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'rok',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'datumDPO',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'status_id',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'prioritet_id',
+                            'enableSorting' => false
+                        ],
+             ['attribute'=>'tura_id',
+                            'enableSorting' => false
+                        ],
+            */
 
-            'id_zadatak',
-            'ime_zadatak',
-            'opis_zadatak:ntext',
-            'dodijeli_zadatak_id',
-            'projekat_id',
-            //'Firma',
-            //'Kontakt',
-            //'posrednik',
-            //'datum',
-            //'rok',
-            //'datumDPO',
-            //'status_id',
-            //'prioritet_id',
-            //'tura_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, \app\models\Zadaci $model, $key, $index, $column) {

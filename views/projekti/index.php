@@ -36,24 +36,12 @@ Html::button(
     ])
 
 ?>
-<?php
 
-Modal::begin(['id' => 'myModal']);
-
-
-
-echo "<div id='myModalContent'></div>";
-
-
-
-Modal::end();
-
-?>
 <div class="projekti-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin(['enablePushState' => false,'linkSelector' => 'pjax-btn']); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -61,14 +49,19 @@ Modal::end();
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'Naziv_Projekta',
-            'Podnaziv',
-            'Boja',
-            'Slicica',
+            ['attribute'=>'Naziv_Projekta',
+                'enableSorting' => false
+            ],
+            ['attribute'=>'Podnaziv',
+                'enableSorting' => false],
+            ['attribute'=>'Boja',
+                'enableSorting' => false],
+            ['attribute'=>'Slicica',
+                'enableSorting' => false],
             [
                 'attribute'=>'Odgovorna_Osoba_id',
                 'label' => 'Odgovorna Osoba',
+                'enableSorting' => false,
                 'value'=>function ($model, $key, $index, $column) {
                     return $model->odgovornaOsoba->Ime;
                 },
@@ -76,6 +69,7 @@ Modal::end();
             [
                 'attribute'=>'Klasna_Oznaka_id',
                 'label' =>'Klasna Oznaka',
+                'enableSorting' => false,
                 'value'=>function ($model, $key, $index, $column) {
 
                     return strtoupper($model['klasnaOznaka']->Klasna_Oznaka);
@@ -103,5 +97,18 @@ Modal::end();
 	// });',
 
 	// yii\web\View::POS_READY); ?>
+    <?php
+
+    Modal::begin(['id' => 'myModal']);
+
+
+
+    echo "<div id='myModalContent'></div>";
+
+
+
+    Modal::end();
+
+    ?>
 
 </div>
