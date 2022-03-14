@@ -46,7 +46,6 @@ class Projekti extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-
             'Naziv_Projekta' => 'Naziv Projekta',
             'Podnaziv' => 'Podnaziv',
             'Boja' => 'Boja',
