@@ -1,5 +1,6 @@
 <?php
 
+use kartik\widgets\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_partneri')->textInput() ?>
+    <?= $form->field($model, 'id_partneri')->hiddenInput(['value' => '0'])->label(false); ?>
 
     <?= $form->field($model, 'Ime')->textInput(['maxlength' => true]) ?>
 
@@ -27,8 +28,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Vrsta')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Napravio')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CreatedAt')->textInput() ?>
 
     <?= $form->field($model, 'Web')->textInput(['maxlength' => true]) ?>
 
@@ -46,7 +45,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'PDV')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Datum_rodjenja')->textInput() ?>
+    <?= $form->field($model,'Datum_rodjenja')->widget(DatePicker::classname(), [
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]);
+
+    ?>
 
     <?= $form->field($model, 'Broj_LK')->textInput(['maxlength' => true]) ?>
 

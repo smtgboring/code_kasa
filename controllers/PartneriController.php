@@ -71,9 +71,12 @@ class PartneriController extends Controller
     public function actionCreate()
     {
         $model = new Partneri();
+        $id=Partneri::find()->max('id_partneri');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $model['CreatedAt']= date('Y-m-d h:i:s');
+                $model['id_partneri']= $id +1;
                 return $this->redirect(['view', 'id_partneri' => $model->id_partneri]);
             }
         } else {

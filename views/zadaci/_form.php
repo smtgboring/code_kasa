@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\zadaci */
@@ -26,11 +27,35 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'posrednik')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'datum')->textInput() ?>
+    <?= $form->field($model,'datum')->widget(DatePicker::classname(), [
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]);
 
-    <?= $form->field($model, 'rok')->textInput() ?>
+    ?>
 
-    <?= $form->field($model, 'datumDPO')->textInput() ?>
+    <?= $form->field($model,'rok')->widget(DatePicker::classname(), [
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]);
+
+    ?>
+
+    <?= $form->field($model,'datumDPO')->widget(DatePicker::classname(), [
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]);
+
+    ?>
 
     <?= $form->field($model, 'status_id')->textInput() ?>
 
