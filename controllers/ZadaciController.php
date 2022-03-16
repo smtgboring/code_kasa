@@ -7,6 +7,7 @@ use app\models\Prioriteti;
 use app\models\Tura;
 use app\models\zadaci;
 use app\zadaciQuery;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -44,7 +45,7 @@ class ZadaciController extends Controller
     {
         $searchModel = new zadaciQuery();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+var_dump($searchModel,"__________",$dataProvider);die;
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -118,9 +119,24 @@ class ZadaciController extends Controller
      */
     public function actionDelete($id_zadatak)
     {
-        $this->findModel($id_zadatak)->delete();
+        $this->findModel($id_zadatak)->status_id = 3;
+       // $this->findModel($id_zadatak)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @return string|void
+     * ajax call for selection
+     */
+    public function actionSelect(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            // $Id =  $data['id'];
+            var_dump($data['id']);die;
+            return $Id;
+        }
+        return "proslo";
     }
 
     /**

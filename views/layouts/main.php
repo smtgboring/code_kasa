@@ -1,3 +1,6 @@
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <?php
 
 /* @var $this \yii\web\View */
@@ -76,8 +79,8 @@ AppAsset::register($this);
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
         <p class="float-left">&copy; ScopeCMS <?= date('Y') ?></p>
-        <p class="float-right"><?= 'Test' ?></p>
-    </div>
+        <p class=
+
 </footer>
 
 <?php $this->endBody() ?>

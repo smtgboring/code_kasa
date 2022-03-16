@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -5,11 +6,14 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\assets\AppAsset;
+
+AppAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $searchModel app\zadaciQuery */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Zadaci';
+$this->title = 'Gpos Zadaci';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="zadaci-index">
@@ -17,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Zadaci', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Napravi Zadatak', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -26,11 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id'=> 'grid',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['attribute'=>'ime_zadatak',
                 'enableSorting' => false
             ],
+
             ['attribute'=>'opis_zadatak',
                 'enableSorting' => false
             ],
@@ -67,8 +73,16 @@ $this->params['breadcrumbs'][] = $this->title;
              ['attribute'=>'tura_id',
                             'enableSorting' => false
                         ],
-            */
 
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                'checkboxOptions' => function(){
+                    return [
+                        'onchange' => 'var keys = $("#grid").yiiGridView("getSelectedRows");
+                        $(this).parent().parent().toggleClass("danger")'
+                    ];
+                }],
+            */
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, \app\models\Zadaci $model, $key, $index, $column) {
@@ -81,3 +95,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+
+<script type="text/javascript">
+    $("#grid").on("click", function(e){
+        var keys = $("#grid").yiiGridView("getSelectedRows");
+        $.ajax({
+            url: "zadaci/select",
+            type: "POST",
+            data: {id: keys},
+            success: function(e){
+                console.log(e);
+            }
+        })
+    });
+
+</script>
