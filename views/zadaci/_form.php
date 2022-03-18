@@ -17,15 +17,15 @@ use kartik\widgets\DatePicker;
 
     <?= $form->field($model, 'opis_zadatak')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'dodijeli_zadatak_id')->textInput() ?>
+    <?= $form->field($model, 'dodijeli_zadatak_id')->dropDownList([$odgovornaOsobaarray]); ?>
 
-    <?= $form->field($model, 'projekat_id')->textInput() ?>
+    <?= $form->field($model, 'projekat_id')->dropDownList([$projektarray]); ?>
 
-    <?= $form->field($model, 'Firma')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'Firma')->dropDownList([$partnerarray]); ?>
 
-    <?= $form->field($model, 'Kontakt')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'Kontakt')->dropDownList([$partnerarray]); ?>
 
-    <?= $form->field($model, 'posrednik')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'posrednik')->dropDownList([$partnerarray]); ?>
 
     <?= $form->field($model,'datum')->widget(DatePicker::classname(), [
         'pluginOptions' => [
@@ -57,7 +57,8 @@ use kartik\widgets\DatePicker;
 
     ?>
 
-    <?= $form->field($model, 'status_id')->textInput() ?>
+
+    <?= $form->field($model, 'status_id')->dropDownList([$statusarray]); ?>
 
     <?= $form->field($model, 'prioritet_id')->dropDownList([$prioritetarray]); ?>
 

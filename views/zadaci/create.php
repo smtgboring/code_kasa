@@ -17,6 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'turaarray' => $turaarray,
         'prioritetarray' => $prioritetarray,
+        'statusarray' => $statusarray,
+        'partnerarray' => $partnerarray,
+        'projektarray' => $projektarray,
+        'odgovornaOsobaarray' => $odgovornaOsobaarray,
     ]) ?>
 
 </div>

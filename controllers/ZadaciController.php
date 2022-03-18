@@ -3,7 +3,11 @@
 namespace app\controllers;
 
 use app\models\KlasnaOznaka;
+use app\models\OdgovornaOsoba;
+use app\models\Partneri;
 use app\models\Prioriteti;
+use app\models\Projekti;
+use app\models\Statusi;
 use app\models\Tura;
 use app\models\zadaci;
 use app\zadaciQuery;
@@ -45,7 +49,7 @@ class ZadaciController extends Controller
     {
         $searchModel = new zadaciQuery();
         $dataProvider = $searchModel->search($this->request->queryParams);
-var_dump($searchModel,"__________",$dataProvider);die;
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -75,6 +79,11 @@ var_dump($searchModel,"__________",$dataProvider);die;
         $model = new zadaci();
         $turaarray= ArrayHelper::map(Tura::find()->all(),'id_tura', 'ime_tura' );
         $prioritetarray = ArrayHelper::map(Prioriteti::find()->all(),'id_prioritet', 'ime_prioritet' );
+        $statusarray = ArrayHelper::map(Statusi::find()->all(),'id_status', 'ime_status' );
+        $partnerarray = ArrayHelper::map(Partneri::find()->all(),'id_partneri', 'Ime' );
+        $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
+        $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
+        $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id_zadatak' => $model->id_zadatak]);
@@ -87,6 +96,11 @@ var_dump($searchModel,"__________",$dataProvider);die;
             'model' => $model,
             'turaarray' => $turaarray,
             'prioritetarray' => $prioritetarray,
+            'statusarray' => $statusarray,
+            'partnerarray' => $partnerarray,
+            'projektarray' => $projektarray,
+            'odgovornaOsobaarray' => $odgovornaOsobaarray,
+
         ]);
     }
 
