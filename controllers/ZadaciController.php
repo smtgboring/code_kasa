@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\ZadaciUraditi;
 
 /**
  * ZadaciController implements the CRUD actions for zadaci model.
@@ -78,10 +79,10 @@ class ZadaciController extends Controller
     {
         $model = new zadaci();
         $turaarray= ArrayHelper::map(Tura::find()->all(),'id_tura', 'ime_tura' );
+        $zadaciuraditiarray= ArrayHelper::map(ZadaciUraditi::find()->all(),'id', 'ime' );
         $prioritetarray = ArrayHelper::map(Prioriteti::find()->all(),'id_prioritet', 'ime_prioritet' );
         $statusarray = ArrayHelper::map(Statusi::find()->all(),'id_status', 'ime_status' );
         $partnerarray = ArrayHelper::map(Partneri::find()->all(),'id_partneri', 'Ime' );
-        $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
         $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
         $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
         if ($this->request->isPost) {
@@ -100,6 +101,7 @@ class ZadaciController extends Controller
             'partnerarray' => $partnerarray,
             'projektarray' => $projektarray,
             'odgovornaOsobaarray' => $odgovornaOsobaarray,
+            'zadaciuraditiarray' => $zadaciuraditiarray,
 
         ]);
     }

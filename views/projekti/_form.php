@@ -20,7 +20,6 @@ $form = ActiveForm::begin([
 <div class="projekti-form">
 
     <?php $form = yii\widgets\ActiveForm::begin(); ?>
-    <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Naziv_Projekta')->textInput(['maxlength' => true]) ?>
 

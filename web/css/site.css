@@ -89,3 +89,6 @@ a.desc:after {
     height: 10px;
     background-color: grey;
 }
+.tab-pane{
+    padding-top: 30px !important;
+}

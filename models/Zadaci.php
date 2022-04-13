@@ -21,6 +21,7 @@ use Yii;
  * @property int|null $status_id
  * @property int|null $prioritet_id
  * @property int|null $tura_id
+ * @property int|null $zadaci_uraditi_id
  *
  * @property Tura $tura
  */
@@ -42,10 +43,11 @@ class Zadaci extends \yii\db\ActiveRecord
         return [
             [['ime_zadatak', 'opis_zadatak', 'Firma', 'Kontakt', 'posrednik'], 'required'],
             [['opis_zadatak'], 'string'],
-            [['dodijeli_zadatak_id', 'projekat_id', 'status_id', 'prioritet_id', 'tura_id'], 'integer'],
+            [['dodijeli_zadatak_id', 'projekat_id', 'status_id', 'prioritet_id', 'tura_id', 'zadaci_uraditi_id'], 'integer'],
             [['datum', 'rok', 'datumDPO'], 'safe'],
             [['ime_zadatak', 'Firma', 'Kontakt', 'posrednik'], 'string', 'max' => 255],
             [['tura_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tura::className(), 'targetAttribute' => ['tura_id' => 'id_tura']],
+            [['zadaci_uraditi_id'], 'exist', 'skipOnError' => true, 'targetClass' => ZadaciUraditi::className(), 'targetAttribute' => ['zadaci_uraditi_id' => 'id']],
         ];
     }
 
@@ -69,6 +71,7 @@ class Zadaci extends \yii\db\ActiveRecord
             'status_id' => 'Status ID',
             'prioritet_id' => 'Prioritet ID',
             'tura_id' => 'Tura ID',
+            'zadaci_uraditi_id' => 'Zadaci Uraditi',
         ];
     }
 
@@ -80,6 +83,16 @@ class Zadaci extends \yii\db\ActiveRecord
     public function getTura()
     {
         return $this->hasOne(Tura::className(), ['id_tura' => 'tura_id']);
+    }
+
+    /**
+     * Gets query for [[ZadaciUraditi]].
+     *
+     * @return \yii\db\ActiveQuery|TuraQuery
+     */
+    public function getZadaciUraditi()
+    {
+        return $this->hasOne(ZadaciUraditi::className(), ['id' => 'zadaci_uraditi_id']);
     }
 
     /**

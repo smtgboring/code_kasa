@@ -73,6 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
              ['attribute'=>'tura_id',
                             'enableSorting' => false
                         ],
+             ['attribute'=>'zadaci_uraditi_id',
+                            'enableSorting' => false
+                        ],
 
             [
                 'class' => 'yii\grid\CheckboxColumn',

@@ -63,6 +63,8 @@ use kartik\widgets\DatePicker;
     <?= $form->field($model, 'prioritet_id')->dropDownList([$prioritetarray]); ?>
 
     <?= $form->field($model, 'tura_id')->dropDownList([$turaarray]); ?>
+    
+    <?= $form->field($model, 'zadaci_uraditi_id')->dropDownList([$zadaciuraditiarray]); ?>
 
 
     <div class="form-group">

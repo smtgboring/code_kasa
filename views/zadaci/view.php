@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'status_id',
             'prioritet_id',
             'tura_id',
+            'zadaci_uraditi_id',
         ],
     ]) ?>
 
