@@ -45,7 +45,7 @@ class OdgovornaOsoba extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Projektis]].
+     * Gets query for [[Projekti]].
      *
      * @return \yii\db\ActiveQuery|ProjektiQuery
      */

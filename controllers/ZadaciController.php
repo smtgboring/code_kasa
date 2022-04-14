@@ -85,14 +85,44 @@ class ZadaciController extends Controller
         $partnerarray = ArrayHelper::map(Partneri::find()->all(),'id_partneri', 'Ime' );
         $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
         $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
+                        
+        $model2 = new ZadaciUraditi();
+        
+        
+        if ($this->request->isPost && isset($this->request->post()["ZadaciUraditi"]["status"]) != "") {
+            
+            $dbid = ZadaciUraditi::find()->max('id');
+            $model2->id = $dbid + 1;
+            
+            if ($model2->load($this->request->post()) && $model2->save()) {
+                
+                return $this->render('create', [
+            'model' => $model,
+            'turaarray' => $turaarray,
+            'prioritetarray' => $prioritetarray,
+            'statusarray' => $statusarray,
+            'partnerarray' => $partnerarray,
+            'projektarray' => $projektarray,
+            'odgovornaOsobaarray' => $odgovornaOsobaarray,
+            'zadaciuraditiarray' => $zadaciuraditiarray,
+            'model2' => $model2,
+                ]);
+                
+            }
+        } else if(1 != 1){
+            $model2->loadDefaultValues();
+        }        
+              
+                
         if ($this->request->isPost) {
+            
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id_zadatak' => $model->id_zadatak]);
             }
         } else {
             $model->loadDefaultValues();
         }
-
+        
         return $this->render('create', [
             'model' => $model,
             'turaarray' => $turaarray,
@@ -102,6 +132,7 @@ class ZadaciController extends Controller
             'projektarray' => $projektarray,
             'odgovornaOsobaarray' => $odgovornaOsobaarray,
             'zadaciuraditiarray' => $zadaciuraditiarray,
+            'model2' => $model2,
 
         ]);
     }
