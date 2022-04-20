@@ -6,9 +6,10 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\zadaci */
 
-$this->title = $model->id_zadatak;
-$this->params['breadcrumbs'][] = ['label' => 'Zadaci', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+$this->title = $model->ime_zadatak;
+// $this->params['breadcrumbs'][] = ['label' => 'Zadaci', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="zadaci-view">

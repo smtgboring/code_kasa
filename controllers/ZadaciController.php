@@ -17,6 +17,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\ZadaciUraditi;
+use app\models\Radnici;
 
 /**
  * ZadaciController implements the CRUD actions for zadaci model.
@@ -77,19 +78,29 @@ class ZadaciController extends Controller
      */
     public function actionCreate()
     {
-        $model = new zadaci();
+        $model = new Zadaci();
         $turaarray= ArrayHelper::map(Tura::find()->all(),'id_tura', 'ime_tura' );
         $zadaciuraditiarray= ArrayHelper::map(ZadaciUraditi::find()->all(),'id', 'ime' );
         $prioritetarray = ArrayHelper::map(Prioriteti::find()->all(),'id_prioritet', 'ime_prioritet' );
         $statusarray = ArrayHelper::map(Statusi::find()->all(),'id_status', 'ime_status' );
         $partnerarray = ArrayHelper::map(Partneri::find()->all(),'id_partneri', 'Ime' );
         $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
-        $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' );
+        
+        
+        $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' ); 
+        $radniciarray = ArrayHelper::map(Radnici::find()->all(), 'id', 'ime');
+        
+        $workersForTask= ArrayHelper::merge($odgovornaOsobaarray, $radniciarray); // combined odgovorna osoba and radnici table for zadaci
                         
+        //var_dump($workersForTask , '____' , $odgovornaOsobaarray , '____' , $radniciarray);die;
+        
         $model2 = new ZadaciUraditi();
+        $modelRadnici = new Radnici;
         
         
-        if ($this->request->isPost && isset($this->request->post()["ZadaciUraditi"]["status"]) != "") {
+        
+        
+        if ($this->request->isPost && isset($this->request->post()["ZadaciUraditi"]["status"]) != "") { //testing if the post is carrying zadaci
             
             $dbid = ZadaciUraditi::find()->max('id');
             $model2->id = $dbid + 1;
@@ -103,13 +114,14 @@ class ZadaciController extends Controller
             'statusarray' => $statusarray,
             'partnerarray' => $partnerarray,
             'projektarray' => $projektarray,
-            'odgovornaOsobaarray' => $odgovornaOsobaarray,
+            'odgovornaOsobaarray' => $workersForTask,
             'zadaciuraditiarray' => $zadaciuraditiarray,
             'model2' => $model2,
+            'modelRadnici' => $modelRadnici,
                 ]);
                 
             }
-        } else if(1 != 1){
+        } else if($this->request->isPost && isset($this->request->post()["ZadaciUraditi"]["status"]) != ""){
             $model2->loadDefaultValues();
         }        
               
@@ -130,9 +142,10 @@ class ZadaciController extends Controller
             'statusarray' => $statusarray,
             'partnerarray' => $partnerarray,
             'projektarray' => $projektarray,
-            'odgovornaOsobaarray' => $odgovornaOsobaarray,
+            'odgovornaOsobaarray' => $workersForTask,
             'zadaciuraditiarray' => $zadaciuraditiarray,
             'model2' => $model2,
+            'modelRadnici' => $modelRadnici,
 
         ]);
     }
@@ -147,13 +160,39 @@ class ZadaciController extends Controller
     public function actionUpdate($id_zadatak)
     {
         $model = $this->findModel($id_zadatak);
+        $turaarray= ArrayHelper::map(Tura::find()->all(),'id_tura', 'ime_tura' );
+        $zadaciuraditiarray= ArrayHelper::map(ZadaciUraditi::find()->all(),'id', 'ime' );
+        $prioritetarray = ArrayHelper::map(Prioriteti::find()->all(),'id_prioritet', 'ime_prioritet' );
+        $statusarray = ArrayHelper::map(Statusi::find()->all(),'id_status', 'ime_status' );
+        $partnerarray = ArrayHelper::map(Partneri::find()->all(),'id_partneri', 'Ime' );
+        $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
+        
+        
+        $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' ); 
+        $radniciarray = ArrayHelper::map(Radnici::find()->all(), 'id', 'ime');
+        
+        $workersForTask= ArrayHelper::merge($odgovornaOsobaarray, $radniciarray); // combined odgovorna osoba and radnici table for zadaci
+                        
+        //var_dump($workersForTask , '____' , $odgovornaOsobaarray , '____' , $radniciarray);die;
+        
+        $model2 = new ZadaciUraditi();
+        $modelRadnici = new Radnici;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_zadatak' => $model->id_zadatak]);
         }
 
-        return $this->render('update', [
+        return $this->render('create', [
             'model' => $model,
+            'turaarray' => $turaarray,
+            'prioritetarray' => $prioritetarray,
+            'statusarray' => $statusarray,
+            'partnerarray' => $partnerarray,
+            'projektarray' => $projektarray,
+            'odgovornaOsobaarray' => $workersForTask,
+            'zadaciuraditiarray' => $zadaciuraditiarray,
+            'model2' => $model2,
+            'modelRadnici' => $modelRadnici,
         ]);
     }
 

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\zadaci */
 
 $this->title = 'Napravi Zadatak';
-$this->params['breadcrumbs'][] = ['label' => 'Zadaci', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Zadaci', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="zadaci-create">
 
@@ -30,9 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> <!-- tab 1 begin -->
-
+    <!-- tab 1 begin -->
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> 
     <?= $this->render('_form', [
         'model' => $model,
         'turaarray' => $turaarray,
@@ -43,13 +42,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'odgovornaOsobaarray' => $odgovornaOsobaarray,
         'zadaciuraditiarray' => $zadaciuraditiarray,
     ]) ?>
-  
-    </div> <!-- tab 1 end -->
+     </div> 
+    <!-- tab 1 end -->
     
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> <!-- tab 2 begin -->
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> 
+    
+      <!-- tab 2 begin -->
       <?= $this->render('_formUraditi', [
         'model2' => $model2,
     ]) ?>
-  </div> <!-- tab 1 end -->
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">3</div>
+   </div> 
+      <!-- tab 2 end -->
+      <!-- tab 3 begin -->
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+  <?= $this->render('_formRadnici', [
+        'modelRadnici' => $modelRadnici,
+    ]) ?>
+  </div>
+      <!-- tab 3 end -->
+  
 </div>

@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model2, 'status')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success','id' => 'radnici_js_button']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

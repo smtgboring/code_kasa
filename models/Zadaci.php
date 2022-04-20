@@ -17,8 +17,8 @@ use Yii;
  * @property string $posrednik
  * @property string|null $datum
  * @property string|null $rok
- * @property string|null $datumDPO
- * @property int|null $status_id
+ * @property string|null $datumDPO  (datum dospjeća)
+ * @property int|null $status_id    (status zadatka, u toku, urađen)
  * @property int|null $prioritet_id
  * @property int|null $tura_id
  * @property int|null $zadaci_uraditi_id

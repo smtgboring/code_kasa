@@ -14,7 +14,7 @@ AppAsset::register($this);
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Gpos Zadaci';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="zadaci-index">
 

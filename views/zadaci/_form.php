@@ -68,7 +68,7 @@ use kartik\widgets\DatePicker;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success','id' => 'radnici_js_button']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
