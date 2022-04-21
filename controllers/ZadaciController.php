@@ -18,6 +18,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\ZadaciUraditi;
 use app\models\Radnici;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
+use app\models\Uredaji;
 
 /**
  * ZadaciController implements the CRUD actions for zadaci model.
@@ -96,6 +99,7 @@ class ZadaciController extends Controller
         
         $model2 = new ZadaciUraditi();
         $modelRadnici = new Radnici;
+        $modelUredaji = new Uredaji;
         
         
         
@@ -118,6 +122,7 @@ class ZadaciController extends Controller
             'zadaciuraditiarray' => $zadaciuraditiarray,
             'model2' => $model2,
             'modelRadnici' => $modelRadnici,
+            'modelUredaji' => $modelUredaji,
                 ]);
                 
             }
@@ -146,6 +151,7 @@ class ZadaciController extends Controller
             'zadaciuraditiarray' => $zadaciuraditiarray,
             'model2' => $model2,
             'modelRadnici' => $modelRadnici,
+            'modelUredaji' => $modelUredaji,
 
         ]);
     }
@@ -239,5 +245,22 @@ class ZadaciController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionUpload()
+    {
+        
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstances($model, 'file');
+
+            if ($model->file && $model->validate()) {
+                foreach ($model->file as $file) {
+                    $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+                }
+            }
+        }
+
+        return $this->render('upload', ['modelUpload' => $model]);
     }
 }
