@@ -21,7 +21,8 @@
         "kartik-v/yii2-widgets": "dev-master",
         "sergmoro1/yii2-modal-crud": "^1.0",
         "yiisoft/yii2-bootstrap5": "@dev",
-        "yiisoft/yii2-jui": "dev-master"
+        "yiisoft/yii2-jui": "dev-master",
+        "kartik-v/yii2-widget-fileinput": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

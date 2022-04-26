@@ -15,10 +15,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelRadnici, 'ime')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($modelRadnici, 'projekti_id')->textInput() ?>
-
-    <?= $form->field($modelRadnici, 'zadaci_id')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success','id' => 'radnici_js_button']) ?>
     </div>

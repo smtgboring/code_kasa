@@ -73,6 +73,7 @@ class ZadaciUraditiController extends Controller
         if ($this->request->isPost) {
             $dbid = ZadaciUraditi::find()->max('id');
             $model->id= $dbid + 1;
+            return 'testing return';
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

@@ -9,7 +9,7 @@ use app\models\Prioriteti;
 use app\models\Projekti;
 use app\models\Statusi;
 use app\models\Tura;
-use app\models\zadaci;
+use app\models\Zadaci;
 use app\zadaciQuery;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -21,6 +21,7 @@ use app\models\Radnici;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
 use app\models\Uredaji;
+use app\models\Radovi;
 
 /**
  * ZadaciController implements the CRUD actions for zadaci model.
@@ -87,7 +88,7 @@ class ZadaciController extends Controller
         $prioritetarray = ArrayHelper::map(Prioriteti::find()->all(),'id_prioritet', 'ime_prioritet' );
         $statusarray = ArrayHelper::map(Statusi::find()->all(),'id_status', 'ime_status' );
         $partnerarray = ArrayHelper::map(Partneri::find()->all(),'id_partneri', 'Ime' );
-        $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );
+        $projektarray = ArrayHelper::map(Projekti::find()->all(),'id', 'Naziv_Projekta' );      
         
         
         $odgovornaOsobaarray = ArrayHelper::map(OdgovornaOsoba::find()->all(),'ID_odgovorna_osoba', 'Ime' ); 
@@ -100,7 +101,10 @@ class ZadaciController extends Controller
         $model2 = new ZadaciUraditi();
         $modelRadnici = new Radnici;
         $modelUredaji = new Uredaji;
-        
+        $modelRadovi = new Radovi;
+        $modelKomentari = new \app\models\Komentari;
+        $modelUpload = new UploadForm;
+        $modeldoc = new \app\models\Uploaddoc();
         
         
         
@@ -123,6 +127,10 @@ class ZadaciController extends Controller
             'model2' => $model2,
             'modelRadnici' => $modelRadnici,
             'modelUredaji' => $modelUredaji,
+            'modelRadovi' => $modelRadovi,
+            'modelKomentari' => $modelKomentari,
+            'modelUpload' => $modelUpload,
+             'modeldoc' => $modeldoc,
                 ]);
                 
             }
@@ -152,6 +160,10 @@ class ZadaciController extends Controller
             'model2' => $model2,
             'modelRadnici' => $modelRadnici,
             'modelUredaji' => $modelUredaji,
+            'modelRadovi' => $modelRadovi,
+            'modelKomentari' => $modelKomentari,
+            'modelUpload' => $modelUpload,
+             'modeldoc' => $modeldoc,
 
         ]);
     }
@@ -183,6 +195,7 @@ class ZadaciController extends Controller
         
         $model2 = new ZadaciUraditi();
         $modelRadnici = new Radnici;
+        
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_zadatak' => $model->id_zadatak]);
@@ -225,7 +238,6 @@ class ZadaciController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
             // $Id =  $data['id'];
-            var_dump($data['id']);die;
             return $Id;
         }
         return "proslo";
@@ -246,6 +258,7 @@ class ZadaciController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
     public function actionUpload()
     {
         
@@ -261,6 +274,75 @@ class ZadaciController extends Controller
             }
         }
 
-        return $this->render('upload', ['modelUpload' => $model]);
+        return $this->render('_upload', ['modelUpload' => $model]);
+    }
+    
+    public function actionAjaxUraditi(){
+        $model = new ZadaciUraditi(); 
+        
+        
+        if ($this->request->isPost) {
+            $model->id = ZadaciUraditi::find()->max('id') + 1;
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->render('create', [
+        'model' => $model,
+    ]);
+            }
+        } else {
+            $model->loadDefaultValues();
+            return $this->render('create', [
+        'model' => $model,
+    ]);
+        }      
+    }      
+    
+     public function actionAjaxUredaji(){
+        $model = new ZadaciUradaji(); 
+        
+        
+        if ($this->request->isPost) {
+         //   $model->id = Uredaji::find()->max('id') + 1;
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->render('create', [
+        'model' => $model,
+    ]);
+            }
+        } else {
+            $model->loadDefaultValues();
+            return $this->render('create', [
+        'model' => $model,
+    ]);
+        } 
+}
+        
+    public function actionAjaxKomentari(){
+        $model = new \app\models\Komentari(); 
+        
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->render('create', [
+        'model' => $model,
+    ]);
+            }
+        } else {
+            $model->loadDefaultValues();
+            return $this->render('create', [
+        'model' => $model,
+    ]);
+        }      
+    }   
+    public function actionUploadDoc()
+    {
+        $model = new \app\models\Uploaddoc();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('uploaddoc', ['modeldoc' => $model]);
     }
 }

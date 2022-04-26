@@ -24,4 +24,15 @@ class UploadForm extends Model
             [['file'], 'file', 'maxFiles' => 10], // <--- here!
         ];
     }
+    public function upload()
+    {
+        if ($this->validate()) { 
+            foreach ($this->imageFiles as $file) {
+                $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
